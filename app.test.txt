@@ -1,0 +1,87 @@
+const request=require('supertest');
+const app= require('./app');
+describe('Book API',()=>{
+    it('Get all books with no auth /books in the form of an array',()=>{
+        return request(app).get('/books').expect('Content-Type',/json/).expect(200).then((response)=>{
+            //assertions on the response
+            expect(response.body).toEqual(
+                expect.arrayContaining([
+                    expect.objectContaining({
+                        title:expect.any(string),
+                        description:expect.any(string),
+                        author:expect.any(string),
+                        coverImage:expect.any(string),
+                        price:expect.any(integer),
+                    })
+                ])
+            )
+        })
+    });
+    it('Get a single book /book/:id using the id',()=>{
+        return request(app).get('/books/:id').expect('Content-Type',/json/).expect(200).then((response)=>{
+            //assertions on the response
+            expect(response.body).toEqual(
+                    expect.objectContaining({
+                        title:expect.any(string),
+                        description:expect.any(string),
+                        author:expect.any(string),
+                        coverImage:expect.any(string),
+                        price:expect.any(integer),
+                    })
+            )
+        })
+    });
+    it('POST Create a new book instance',()=>{
+        return request(app).post('/books/:id').expect('Content-Type',/json/).expect(200).then((response)=>{
+            //assertions on the response
+            expect(response.body).toEqual(
+                    expect.objectContaining({
+                        title:expect.any(string),
+                        description:expect.any(string),
+                        author:expect.any(string),
+                        coverImage:expect.any(string),
+                        price:expect.any(integer),
+                    })
+            )
+        })
+    });
+    it('Delete a book /book/:id',()=>{
+        return request(app).delete('/books/:id').expect('Content-Type',/json/).expect(200).then((response)=>{
+            //assertions on the response
+            expect(response.body).toEqual(
+                    expect.objectContaining({
+                        title:expect.any(string),
+                        description:expect.any(string),
+                        author:expect.any(string),
+                        coverImage:expect.any(string),
+                        price:expect.any(integer),
+                    })
+            )
+        })
+    });
+    it('POST login a user and return a jwt token',()=>{
+        return request(app).post('/login').expect('Content-Type',/json/).expect(200).then((response)=>{
+            //assertions on the response
+            expect(response.body).toEqual(
+                    expect.objectContaining({
+                        username:expect.any(string),
+                        password:expect.any(string),
+                    })
+            )
+        })
+    })
+    it('POST register a new user and return a new jwt token',()=>{
+        return request(app).post('/login').expect('Content-Type',/json/).expect(200).then((response)=>{
+            //assertions on the response
+            expect(response.body).toEqual(
+                    expect.objectContaining({
+                        username:expect.any(string),
+                        password:expect.any(string),
+                    })
+            )
+        })
+    })
+    it('Spotting errors and returning 404',()=>{
+        return request(app).post('/book').send({}).expect('Content-Type',/json/).expect(200)
+    })
+})

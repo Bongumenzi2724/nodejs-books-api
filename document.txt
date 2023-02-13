@@ -1,0 +1,7 @@
+## Future works
+i.  Cross platform development
+ii. Create connections between different applications and devices
+iii.Take into consideration the frontend to integrate with applications
+iv. Integration to help when it comes to server compatibility with different services and programs
+v.  Implement automated test before the implementation process
+vi. Implement API orchestration skills
